@@ -1,0 +1,55 @@
+{
+  "name": "toolint",
+  "version": "0.1.0",
+  "description": "A linter for MCP tool JSON Schemas: flags missing descriptions, vague enums, and model-confusing names. Encodes model-usability heuristics, not generic JSON-Schema validity. Zero runtime dependencies.",
+  "author": "JaydenCJ <aisingioro.kiyon@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "toolint": "dist/cli.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "examples",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test \"tests/*.test.mjs\"",
+    "smoke": "bash scripts/smoke.sh"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "linter",
+    "json-schema",
+    "tool-calling",
+    "llm",
+    "agent",
+    "cli"
+  ],
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaydenCJ/toolint.git"
+  },
+  "homepage": "https://github.com/JaydenCJ/toolint#readme",
+  "bugs": {
+    "url": "https://github.com/JaydenCJ/toolint/issues"
+  }
+}

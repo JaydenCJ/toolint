@@ -1,0 +1,103 @@
+{
+  "tools": [
+    {
+      "name": "search_notes",
+      "description": "Full-text search across all saved notes. Returns up to `limit` matches ranked by relevance, each with the note id, title, and a matching snippet. Use this before create_note to avoid duplicates.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query_text": {
+            "type": "string",
+            "description": "Words or phrases to look for. Plain text, not a regular expression."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of matches to return.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 50
+          },
+          "include_archived": {
+            "type": "boolean",
+            "description": "Set to true to also search notes that have been archived.",
+            "default": false
+          }
+        },
+        "required": ["query_text"]
+      }
+    },
+    {
+      "name": "create_note",
+      "description": "Create a new note and return its id. Fails if a note with the same title already exists; search first when unsure.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Short human-readable title, unique across the notebook."
+          },
+          "body_markdown": {
+            "type": "string",
+            "description": "The note content as Markdown. May be empty for a placeholder note."
+          },
+          "tags": {
+            "type": "array",
+            "description": "Zero or more tag names to attach; unknown tags are created on the fly.",
+            "items": { "type": "string", "description": "A single tag name, e.g. \"meetings\"." }
+          }
+        },
+        "required": ["title", "body_markdown"]
+      }
+    },
+    {
+      "name": "update_note",
+      "description": "Replace the title, body, or tags of an existing note. Only the fields provided are changed; omitted fields keep their current value.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "note_id": {
+            "type": "string",
+            "description": "Id of the note to change, as returned by search_notes or create_note."
+          },
+          "title": {
+            "type": "string",
+            "description": "New title. Omit to keep the current title."
+          },
+          "body_markdown": {
+            "type": "string",
+            "description": "New Markdown content. Omit to keep the current body."
+          },
+          "sort_order": {
+            "type": "string",
+            "description": "Where the note appears in list views after the update.",
+            "enum": ["manual", "newest_first", "oldest_first"],
+            "default": "manual"
+          }
+        },
+        "required": ["note_id"]
+      }
+    },
+    {
+      "name": "archive_note",
+      "description": "Move a note to the archive so it stops appearing in default searches. Archiving is reversible; nothing is deleted.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "note_id": {
+            "type": "string",
+            "description": "Id of the note to archive."
+          }
+        },
+        "required": ["note_id"]
+      }
+    },
+    {
+      "name": "list_tags",
+      "description": "List every tag in the notebook with the number of notes attached to each. Takes no arguments.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "enum-large": "off",
+    "tool-description-long": { "options": { "maxChars": 2048 } },
+    "too-many-params": { "severity": "error", "options": { "max": 6 } },
+    "name-verb": "info"
+  },
+  "ignoreTools": ["legacy_*", "debug_*"]
+}

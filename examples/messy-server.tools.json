@@ -1,0 +1,82 @@
+{
+  "tools": [
+    {
+      "name": "run",
+      "description": "TODO",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object"
+          },
+          "mode": {
+            "type": "string",
+            "enum": ["option1", "option2", "Fast"],
+            "default": "quick"
+          },
+          "no_cache": {
+            "type": "boolean"
+          }
+        },
+        "required": ["data", "command"]
+      }
+    },
+    {
+      "name": "DocSearch",
+      "inputSchema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "doc_search",
+      "description": "Search documents",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "What to search for in the document store."
+          },
+          "attachments": {
+            "type": "array",
+            "description": "Extra files to search inside as well."
+          }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "user_report",
+      "description": "Search documents",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filters": {
+            "type": "object",
+            "description": "Report filters as a nested object.",
+            "properties": {
+              "range": {
+                "type": "object",
+                "description": "Date range for the report.",
+                "properties": {
+                  "start": {
+                    "type": "object",
+                    "description": "Start boundary of the range.",
+                    "properties": {
+                      "year": { "type": "integer" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "format": {
+            "type": "string",
+            "description": "Output format for the generated report.",
+            "enum": ["pdf", "PDF", "csv", "3"]
+          }
+        }
+      }
+    }
+  ]
+}
